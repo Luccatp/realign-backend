@@ -6,15 +6,15 @@ import prisma from "../../utils/db";
 module.exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
+    console.log(body);
     const id = event.pathParameters.id;
-    if (!id) throw new Error("id needs to be valid");
 
     const result = await prisma.user.update({
       where: {
         id: id,
       },
       data: {
-        phone: body.phone,
+        ...body,
       },
     });
 

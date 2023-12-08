@@ -15,6 +15,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   phone     String   @unique
+  email     String   @unique
   name      String?
   called    Boolean  @default(false)
   deleted   Boolean  @default(false)

@@ -9,6 +9,7 @@ module.exports.handler = async (event) => {
     const result = await prisma.user.create({
       data: {
         phone: body.phone,
+        email: body.email,
       },
     });
 

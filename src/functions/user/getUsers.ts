@@ -8,6 +8,9 @@ module.exports.handler = async (_, res: Response) => {
       where: {
         deleted: false,
       },
+      orderBy: {
+        called: "desc",
+      },
     });
 
     return {

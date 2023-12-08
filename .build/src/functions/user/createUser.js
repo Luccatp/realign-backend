@@ -47,6 +47,7 @@ module.exports.handler = function (event) { return __awaiter(void 0, void 0, voi
                 return [4 /*yield*/, db_1.default.user.create({
                         data: {
                             phone: body.phone,
+                            email: body.email,
                         },
                     })];
             case 1:

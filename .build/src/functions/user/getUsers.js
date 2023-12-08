@@ -47,6 +47,9 @@ module.exports.handler = function (_, res) { return __awaiter(void 0, void 0, vo
                         where: {
                             deleted: false,
                         },
+                        orderBy: {
+                            called: "desc",
+                        },
                     })];
             case 1:
                 result = _a.sent();
