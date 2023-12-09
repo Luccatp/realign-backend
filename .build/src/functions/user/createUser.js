@@ -38,25 +38,62 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var db_1 = require("../../utils/db");
 module.exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var body, result, error_1;
+    var body, userExists, result_1, result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
+                _a.trys.push([0, 5, , 6]);
                 body = JSON.parse(event.body);
-                return [4 /*yield*/, db_1.default.user.create({
-                        data: {
-                            phone: body.phone,
-                            email: body.email,
+                return [4 /*yield*/, db_1.default.user.findFirst({
+                        where: {
+                            OR: [
+                                {
+                                    email: body.email,
+                                },
+                                {
+                                    phone: body.phone,
+                                },
+                            ],
                         },
                     })];
             case 1:
-                result = _a.sent();
+                userExists = _a.sent();
+                console.log(userExists);
+                if (!userExists) return [3 /*break*/, 3];
+                return [4 /*yield*/, db_1.default.user.update({
+                        where: {
+                            id: userExists.id,
+                        },
+                        data: {
+                            plan: body.plan,
+                        },
+                    })];
+            case 2:
+                result_1 = _a.sent();
                 return [2 /*return*/, {
                         statusCode: 200,
-                        body: JSON.stringify(result),
+                        body: JSON.stringify({
+                            message: "User already exists, plan updated",
+                            result: result_1,
+                        }),
                     }];
-            case 2:
+            case 3: return [4 /*yield*/, db_1.default.user.create({
+                    data: {
+                        phone: body.phone,
+                        email: body.email,
+                        plan: body.plan,
+                    },
+                })];
+            case 4:
+                result = _a.sent();
+                return [2 /*return*/, {
+                        statusCode: 201,
+                        body: JSON.stringify({
+                            message: "User created",
+                            result: result,
+                        }),
+                    }];
+            case 5:
                 error_1 = _a.sent();
                 return [2 /*return*/, {
                         statusCode: 500,
@@ -64,7 +101,7 @@ module.exports.handler = function (event) { return __awaiter(void 0, void 0, voi
                             error: error_1.message,
                         }),
                     }];
-            case 3: return [2 /*return*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); };

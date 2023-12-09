@@ -46,6 +46,13 @@ functions: # as funções lambda
           path: updateUser/{id}
           method: put
           cors: true
+  postUtm:
+    handler: src/functions/data/postUTM.handler
+    events:
+      - http:
+          path: postUTM
+          method: post
+          cors: true
 
 plugins: # lista de plugin
   - serverless-offline # rodar o projeto na sua maquina offline

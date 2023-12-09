@@ -17,6 +17,17 @@ model User {
   phone     String   @unique
   email     String   @unique
   name      String?
+  plan      String
   called    Boolean  @default(false)
   deleted   Boolean  @default(false)
+}
+
+model utmData {
+  id           String   @id @default(cuid()) @map("_id")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  utm_source   String?
+  utm_medium   String?
+  utm_campaign String?
+  utm_content  String?
 }

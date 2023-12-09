@@ -2,14 +2,12 @@
 
 import prisma from "../../utils/db";
 
-module.exports.handler = async (_, res: Response) => {
+module.exports.handler = async (event) => {
   try {
-    const result = await prisma.user.findMany({
-      where: {
-        deleted: false,
-      },
-      orderBy: {
-        called: "asc",
+    const body = JSON.parse(event.body);
+    const result = await prisma.utmData.create({
+      data: {
+        ...body
       },
     });
 
